@@ -11,9 +11,11 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-imagemin": "^1.0.1",
+    "grunt-env": "^0.4.4",
     "grunt-sharp": "github:taube/grunt-sharp",
     "imagemin-mozjpeg": "^6.0.0",
     "sharp": "^0.17.2",
-    "smartcrop": "^1.1.1"
+    "smartcrop": "^1.1.1",
+    "smartcrop-sharp": "^1.0.5"
   }
 }
