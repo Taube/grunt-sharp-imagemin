@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.{ext}' },
 						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.webp' },
 						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.{ext}' },
-						{ smartcrop: true, resize: [1300, 600], rename: '{base}-md.webp' },
+						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.webp' },
 						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.{ext}' },
 						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.webp' }
 					]
@@ -71,5 +71,5 @@ module.exports = function(grunt) {
 
 	// Generate and minify all images with retina input.
 	grunt.registerTask('retina', ['sharp:retina', 'imagemin:retina']);
-	grunt.registerTask('hero', ['sharp:hero'], 'imagemin:hero');
+	grunt.registerTask('hero', ['sharp:hero', 'imagemin:hero']);
 };
