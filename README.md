@@ -1,8 +1,31 @@
+# Install
+Step 1: Clone the project.
 ```shell
 git clone https://github.com/Taube/grunt-sharp-imagemin.git
+```
+Step 2: Install the dependencies
+```shell
+cd grunt-sharp-imagemin
 npm install
 ```
 
+# Usage
+Create 1x and 2x versions of your 3x retina images incl. webp.
+```shell
+grunt retina
+```
+
+Created Smartcrop version of your LG breapoint Hero image
+```shell
+grunt hero
+```
+
+## Learn more
+Sharp: https://github.com/lovell/sharp
+Smartcrop: https://github.com/jwagner/smartcrop.js
+
+
+## Example
 ```js
 sharp: {
 	retina: {
