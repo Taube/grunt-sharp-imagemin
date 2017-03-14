@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 	'use strict';
 
-	// var mozjpeg = require('imagemin-mozjpeg');
+	var mozjpeg = require('imagemin-mozjpeg');
 
 	grunt.initConfig({
 		imagemin: {
