@@ -1,24 +1,24 @@
 module.exports = function(grunt) {
 	'use strict';
 
-	var mozjpeg = require('imagemin-mozjpeg');
+	// var mozjpeg = require('imagemin-mozjpeg');
 
 	grunt.initConfig({
 		imagemin: {
-			dynamic: {
-				files: [{
-					expand: true,
-					cwd: 'resize/',
-					src: ['**/*.{png,jpg,gif,webp}'],
-					dest: 'dist/'
-				}]
-			},
 			retina: {
 				files: [{
 					expand: true,
 					cwd: 'resize/retina/',
 					src: ['**/*.{png,jpg,gif,webp}'],
-					dest: 'dist/'
+					dest: 'dist/retina/'
+				}]
+			},
+			hero: {
+				files: [{
+					expand: true,
+					cwd: 'resize/hero/',
+					src: ['**/*.{png,jpg,gif,webp}'],
+					dest: 'dist/hero/'
 				}]
 			}
 		},
@@ -40,6 +40,26 @@ module.exports = function(grunt) {
 						{ resize: '1x', rename: '{base}.webp' }
 					]
 				}
+			},
+			hero: {
+				files: [{
+					expand: true,
+					cwd: 'src/hero/',
+					src: ['**/*.{png,jpg,gif}'],
+					dest: 'resize/hero/'
+				}],
+				options: {
+					tasks: [
+						{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.{ext}' },
+						{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.webp' },
+						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.{ext}' },
+						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.webp' },
+						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.{ext}' },
+						{ smartcrop: true, resize: [1300, 600], rename: '{base}-md.webp' },
+						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.{ext}' },
+						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.webp' }
+					]
+				}
 			}
 		}
 	});
@@ -51,4 +71,5 @@ module.exports = function(grunt) {
 
 	// Generate and minify all images with retina input.
 	grunt.registerTask('retina', ['sharp:retina', 'imagemin:retina']);
+	grunt.registerTask('hero', ['sharp:hero'], 'imagemin:hero');
 };
