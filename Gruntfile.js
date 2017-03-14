@@ -9,6 +9,39 @@ module.exports = function(grunt) {
 				VIPS_WARNING: 0
 			}
 		},
+		express: {
+		 	dev: {
+		 		options: {
+		 			script: 'server.js',
+		 		}
+		 	}
+		},
+		watch: {
+			express: {
+				files:  [ 'index.html', 'dist/**/*.js' ],
+				tasks:  [ 'express:dev' ],
+				options: {
+					spawn: false
+				},
+				public: {
+					files: ['dist/**/*.js']
+				}
+			}
+		},
+		modernizr: {
+			dist: {
+				'crawl': false,
+				'customTests': [],
+				'dest': 'dist/modernizr.js',
+				'tests': [
+					'webp'
+				],
+				'options': [
+					'setClasses'
+				],
+				'uglify': true
+			}
+		},
 		imagemin: {
 			retina: {
 				files: [{
@@ -69,11 +102,21 @@ module.exports = function(grunt) {
 		}
 	});
 
+	// Image optimization
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-sharp');
 	grunt.loadNpmTasks('grunt-env');
 
+	// Demo servewr tasks
+	grunt.loadNpmTasks('grunt-express-server');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks("grunt-modernizr");
+
+	// Generate production images
 	grunt.registerTask('default', ['imagemin']);
 	grunt.registerTask('retina', ['env:dev', 'sharp:retina', 'imagemin:retina']);
 	grunt.registerTask('hero', ['env:dev', 'sharp:hero', 'imagemin:hero']);
+
+	// Run a simple server to test the production images
+	grunt.registerTask('server', ['modernizr', 'express:dev', 'watch']);
 };
