@@ -1,9 +1,14 @@
 module.exports = function(grunt) {
 	'use strict';
 
-	// var mozjpeg = require('imagemin-mozjpeg');
+	var mozjpeg = require('imagemin-mozjpeg');
 
 	grunt.initConfig({
+		env: {
+			dev: {
+				VIPS_WARNING: 0
+			}
+		},
 		imagemin: {
 			retina: {
 				files: [{
@@ -50,14 +55,14 @@ module.exports = function(grunt) {
 				}],
 				options: {
 					tasks: [
-						{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.{ext}' },
-						{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.webp' },
-						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.{ext}' },
-						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.webp' },
-						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.{ext}' },
-						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.webp' },
-						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.{ext}' },
-						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.webp' }
+						{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.{ext}',	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.webp', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.{ext}', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.webp', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.{ext}', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.webp', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.{ext}', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.webp', 	overlayWith: ['src/black_04.png', { tile: true }] }
 					]
 				}
 			}
@@ -66,10 +71,9 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-sharp');
+	grunt.loadNpmTasks('grunt-env');
 
 	grunt.registerTask('default', ['imagemin']);
-
-	// Generate and minify all images with retina input.
-	grunt.registerTask('retina', ['sharp:retina', 'imagemin:retina']);
-	grunt.registerTask('hero', ['sharp:hero', 'imagemin:hero']);
+	grunt.registerTask('retina', ['env:dev', 'sharp:retina', 'imagemin:retina']);
+	grunt.registerTask('hero', ['env:dev', 'sharp:hero', 'imagemin:hero']);
 };
