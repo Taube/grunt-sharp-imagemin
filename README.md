@@ -21,52 +21,54 @@ grunt hero
 ```
 
 ## Learn more
-Sharp: https://github.com/lovell/sharp
-Smartcrop: https://github.com/jwagner/smartcrop.js
+Sharp:
+https://github.com/lovell/sharp
 
+Smartcrop:
+https://github.com/jwagner/smartcrop.js
 
 ## Example
 ```js
-sharp: {
-	retina: {
-		files: [{
-			expand: true,
-			cwd: 'src/retina/',
-			src: ['**/*.{png,jpg,gif}'],
-			dest: 'resize/retina/'
-		}],
-		options: {
-			tasks: [
-				{ resize: '3x', rename: '{base}_3x.{ext}' },
-				{ resize: '3x', rename: '{base}_3x.webp' },
-				{ resize: '2x', rename: '{base}_2x.{ext}' },
-				{ resize: '2x', rename: '{base}_2x.webp' },
-				{ resize: '1x', rename: '{base}.{ext}' },
-				{ resize: '1x', rename: '{base}.webp' }
-			]
+		sharp: {
+			retina: {
+				files: [{
+					expand: true,
+					cwd: 'src/retina/',
+					src: ['**/*.{png,jpg,gif}'],
+					dest: 'resize/retina/'
+				}],
+				options: {
+					tasks: [
+						{ resize: '3x', rename: '{base}_3x.{ext}' },
+						{ resize: '3x', rename: '{base}_3x.webp' },
+						{ resize: '2x', rename: '{base}_2x.{ext}' },
+						{ resize: '2x', rename: '{base}_2x.webp' },
+						{ resize: '1x', rename: '{base}.{ext}' },
+						{ resize: '1x', rename: '{base}.webp' }
+					]
+				}
+			},
+			hero: {
+				files: [{
+					expand: true,
+					cwd: 'src/hero/',
+					src: ['**/*.{png,jpg,gif}'],
+					dest: 'resize/hero/'
+				}],
+				options: {
+					tasks: [
+						{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.{ext}',	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.webp', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.{ext}', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.webp', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.{ext}', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.webp', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.{ext}', 	overlayWith: ['src/black_04.png', { tile: true }] },
+						{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.webp', 	overlayWith: ['src/black_04.png', { tile: true }] }
+					]
+				}
+			}
 		}
-	},
-	hero: {
-		files: [{
-			expand: true,
-			cwd: 'src/hero/',
-			src: ['**/*.{png,jpg,gif}'],
-			dest: 'resize/hero/'
-		}],
-		options: {
-			tasks: [
-				{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.{ext}' },
-				{ smartcrop: true, resize: [2000, 847], rename: '{base}-lg.webp' },
-				{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.{ext}' },
-				{ smartcrop: true, resize: [1300, 700], rename: '{base}-md.webp' },
-				{ smartcrop: true, resize: [1000, 600], rename: '{base}-sm.{ext}' },
-				{ smartcrop: true, resize: [1300, 600], rename: '{base}-md.webp' },
-				{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.{ext}' },
-				{ smartcrop: true, resize: [600, 600], rename: '{base}-xs.webp' }
-			]
-		}
-	}
-}
 ```
 
 ## Set up Windows 10 to work with Sharp
@@ -74,11 +76,15 @@ sharp: {
 ### 1. Install Windows Build Tools
 If you're using Windows you can now install all node-gyp dependencies with single command (As Administrator):
 DOCS: https://github.com/felixrieseberg/windows-build-tools
+```shell
 $ npm install --global --production windows-build-tools
+```
 
 ### 2. Install Node Build Tools
 DOCS: https://github.com/nodejs/node-gyp
+```shell
 $ npm install --global node-gyp
+```
 
 ### 3. Install Windows SDK version 8.1
 Creating A C++ (Desktop) project in VS2015.
